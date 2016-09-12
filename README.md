@@ -1,5 +1,5 @@
 # LogAdapter
-Adapter for library logging (for current and future logging frameworks)
+Adapter for library logging (for current and future logging frameworks). LogAdapter is not a logging framework. It is intended to be used instead of a logger in order to let the consumer of a library choose how to log things.
 
 ## Goal
 
