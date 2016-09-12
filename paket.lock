@@ -1,9 +1,11 @@
+REDIRECTS: ON
 FRAMEWORK: >= NET45
 NUGET
   remote: http://api.nuget.org/v3/index.json
+  specs:
     FAKE (4.39.1)
     FParsec (1.0.2)
-    FSharp.Core (4.0.0.1)
+    FSharp.Core (4.0.0.1) - redirects: force
     Hopac (0.3.15)
     log4net (2.0.5)
     Logary (4.0.112)

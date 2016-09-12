@@ -4,6 +4,35 @@ namespace LogAdapter
     using LogMessage = System.Action<string, Exception, object>;
     public class LogAdapter
     {
+
+        /// <summary>
+        /// https://code.logos.com/blog/2008/07/casting_delegates.html
+        /// </summary>
+        private static class DelegateUtility
+        {
+            public static T Cast<T>(Delegate source) where T : class
+            {
+                return Cast(source, typeof(T)) as T;
+            }
+
+            public static Delegate Cast(Delegate source, Type type)
+            {
+                if (source == null)
+                    return null;
+
+                Delegate[] delegates = source.GetInvocationList();
+                if (delegates.Length == 1)
+                    return Delegate.CreateDelegate(type,
+                        delegates[0].Target, delegates[0].Method);
+
+                Delegate[] delegatesDest = new Delegate[delegates.Length];
+                for (int nDelegate = 0; nDelegate < delegates.Length; nDelegate++)
+                    delegatesDest[nDelegate] = Delegate.CreateDelegate(type,
+                        delegates[nDelegate].Target, delegates[nDelegate].Method);
+                return Delegate.Combine(delegatesDest);
+            }
+        }
+
         readonly LogMessage _info;
         readonly LogMessage _debug;
         readonly LogMessage _warn;
@@ -27,6 +56,12 @@ namespace LogAdapter
 
         void Empty(string message, Exception exception, object fields)
         {
+        }
+
+        public T CastMethodTo<T>() where T : class
+        {
+            Logger log = Log;
+            return DelegateUtility.Cast<T>(log);
         }
 
         public void Log(Exception expn = null,

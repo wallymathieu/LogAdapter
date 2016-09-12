@@ -12,7 +12,7 @@ namespace Tests
         {
             
         }
-        public LogAdapter.Logger GetAdapter()
+        public LogAdapter.LogAdapter GetAdapter()
         {
             return new LogAdapter.LogAdapter(
                 info: (msg, exn, fields) => _logger.Log(ToLogEvent(LogLevel.Info, exn, msg ,fields)),
@@ -20,7 +20,7 @@ namespace Tests
                 warn: (msg, exn, fields) => _logger.Log(ToLogEvent(LogLevel.Warn, exn, msg,fields)),
                 error: (msg, exn, fields) => _logger.Log(ToLogEvent(LogLevel.Error, exn, msg,fields)),
                 fatal: (msg, exn, fields) => _logger.Log(ToLogEvent(LogLevel.Fatal, exn, msg,fields))
-            ).Log;
+            );
         }
 
         LogEventInfo ToLogEvent(LogLevel info, Exception exn, string msg, object fields)
@@ -34,7 +34,7 @@ namespace Tests
         public void Test() 
         {
             var log = GetAdapter();
-            var c = new MyClass((expn, fields, fatal, error, warn, debug, info) => log(expn,fields, fatal, error,warn,debug,info));
+            var c = new MyClass(log.CastMethodTo<MyClass.Logger>());
         }
    }
 }

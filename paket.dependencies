@@ -1,3 +1,4 @@
+redirects: on
 source https://api.nuget.org/v3/index.json
 source https://www.nuget.org/api/v2
 framework >= net45
@@ -9,3 +10,4 @@ nuget Logary
 nuget Logary.CSharp
 nuget log4net
 nuget FAKE
+nuget FSharp.Core ~> 4 redirects: force
