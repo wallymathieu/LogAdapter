@@ -1,0 +1,10 @@
+﻿type project
+id LogAdapter
+title LogAdapter
+authors Oskar Gewalli
+owners Oskar Gewalli
+projectUrl https://github.com/wallymathieu/LogAdapter
+requireLicenseAcceptance false
+summary
+    Adapter in order to expose library logging (for current and future logging frameworks)
+licenseurl http://opensource.org/licenses/MIT

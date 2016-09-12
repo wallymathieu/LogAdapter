@@ -1,0 +1,9 @@
+source https://api.nuget.org/v3/index.json
+source https://www.nuget.org/api/v2
+framework >= net45
+
+nuget NUnit 2.6.4
+nuget NLog
+nuget Logary
+nuget Logary.CSharp
+nuget log4net
