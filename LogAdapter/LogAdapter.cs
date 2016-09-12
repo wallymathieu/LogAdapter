@@ -1,10 +1,17 @@
 ﻿using System;
+# if CORE
 namespace LogAdapter
+#elif NLOG
+namespace LogAdapter.NLog
+#elif LOGARY
+namespace LogAdapter.Logary
+#else
+namespace LogAdapter.Other
+#endif
 {
-    using LogMessage = System.Action<string, Exception, object>;
-    public class LogAdapter
+    using LogMessage = Action<string, Exception, object>;
+    public partial class LogAdapter
     {
-
         /// <summary>
         /// https://code.logos.com/blog/2008/07/casting_delegates.html
         /// </summary>
@@ -57,6 +64,15 @@ namespace LogAdapter
         void Empty(string message, Exception exception, object fields)
         {
         }
+
+        private delegate void Logger(Exception expn = null,
+                    object fields = null,
+                    string fatal = null,
+                    string error = null,
+                    string warn = null,
+                    string debug = null,
+                    string info = null);
+
 
         public T CastMethodTo<T>() where T : class
         {

@@ -1,6 +1,7 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{4BE81F38-8F75-49E2-B09F-98C1D90404A9}"
 	ProjectSection(SolutionItems) = preProject
 		paket.dependencies = paket.dependencies
@@ -9,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter", "LogAdapter\LogAdapter.csproj", "{23D5264E-1357-4F15-8A2B-B0119F6DB74F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7BDD67F1-6857-435B-9923-0DDD053DC32D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter.NLog", "LogAdapter.NLog\LogAdapter.NLog.csproj", "{CCA47096-0FB8-4AEF-967F-0D2A641795C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +27,12 @@ Global
 		{7BDD67F1-6857-435B-9923-0DDD053DC32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BDD67F1-6857-435B-9923-0DDD053DC32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BDD67F1-6857-435B-9923-0DDD053DC32D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
