@@ -15,7 +15,7 @@ open System.IO
 let solutionFile  = "./LogAdapter.sln"
 
 // Pattern specifying assemblies to be tested using NUnit
-let testAssemblies = "**/bin/Debug/Tests.dll"
+let testAssemblies = "**/bin/*/Tests.dll"
 
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps
