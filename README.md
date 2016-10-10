@@ -7,7 +7,7 @@ Adapter for library logging (for current and future logging frameworks). LogAdap
 
 ## Goal
 
-Avoid taking on a dependency on a logging library for a library
+Avoid taking on a dependency on a logging library for a library. The intent is that in your application code you can take a dependency on a specific version of a logging framework, and create a LogAdapter implementation for that specific version. A library should not determine what kind of logging you choose for your application.
 
 ## Installation
 
