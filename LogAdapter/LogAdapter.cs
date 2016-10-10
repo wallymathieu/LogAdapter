@@ -81,6 +81,10 @@ namespace LogAdapter.Other
             Logger log = Log;
             return DelegateUtility.Cast<T>(log);
         }
+        public bool IsValid<T>() 
+        {
+            return false;
+        }
 
         public void Log(Exception expn = null,
                         object fields = null,

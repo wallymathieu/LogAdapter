@@ -35,6 +35,7 @@
     <Compile Include="LogaryAdapterTests.cs" />
     <Compile Include="NLogAdapterTests.cs" />
     <Compile Include="Log4NetAdapterTests.cs" />
+    <Compile Include="VerifyLoggerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
