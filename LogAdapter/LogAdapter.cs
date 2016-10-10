@@ -5,8 +5,10 @@ namespace LogAdapter
 namespace LogAdapter.NLog
 #elif LOGARY
 namespace LogAdapter.Logary
+#elif LOG4NET
+namespace LogAdapter.Log4Net
 #else
-namespace LogAdapter.Other
+namespace LogAdapter.Other       
 #endif
 {
     using LogMessage = Action<string, Exception, object>;

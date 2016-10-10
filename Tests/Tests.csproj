@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Tests</RootNamespace>
     <AssemblyName>Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,9 +32,9 @@
   <ItemGroup>
     <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LogaryAdapter.cs" />
-    <Compile Include="NLogAdapter.cs" />
-    <Compile Include="Log4NetAdapter.cs" />
+    <Compile Include="LogaryAdapterTests.cs" />
+    <Compile Include="NLogAdapterTests.cs" />
+    <Compile Include="Log4NetAdapterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -44,6 +44,18 @@
     <ProjectReference Include="..\LogAdapter\LogAdapter.csproj">
       <Project>{23D5264E-1357-4F15-8A2B-B0119F6DB74F}</Project>
       <Name>LogAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogAdapter.NLog\LogAdapter.NLog.csproj">
+      <Project>{CCA47096-0FB8-4AEF-967F-0D2A641795C6}</Project>
+      <Name>LogAdapter.NLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogAdapter.Logary\LogAdapter.Logary.csproj">
+      <Project>{719F4F91-386C-44A9-8E71-CEB2D99DB606}</Project>
+      <Name>LogAdapter.Logary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogAdapter.Log4Net\LogAdapter.Log4Net.csproj">
+      <Project>{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}</Project>
+      <Name>LogAdapter.Log4Net</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

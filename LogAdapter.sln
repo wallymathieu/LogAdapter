@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter.NLog", "LogAdapt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter.Logary", "LogAdapter.Logary\LogAdapter.Logary.csproj", "{719F4F91-386C-44A9-8E71-CEB2D99DB606}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter.Log4Net", "LogAdapter.Log4Net\LogAdapter.Log4Net.csproj", "{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{719F4F91-386C-44A9-8E71-CEB2D99DB606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{719F4F91-386C-44A9-8E71-CEB2D99DB606}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{719F4F91-386C-44A9-8E71-CEB2D99DB606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
