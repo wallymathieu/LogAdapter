@@ -1,6 +1,6 @@
 ﻿type project
 id LogAdapter.NLog
-version 1.0.0.0
+version 1.0.1.0
 title LogAdapter.NLog
 authors Oskar Gewalli
 owners Oskar Gewalli
