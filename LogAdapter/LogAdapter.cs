@@ -30,6 +30,8 @@ namespace LogAdapter.Other
             {
                 if (source == null)
                     return null;
+                if (!SameApi(source.Method, type.GetMethod("Invoke")))
+                    throw new Exception("The source delegate does not match the target delegate!");
 
                 Delegate[] delegates = source.GetInvocationList();
                 if (delegates.Length == 1)
