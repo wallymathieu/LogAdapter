@@ -11,6 +11,8 @@ namespace LogAdapter.Log4Net
 namespace LogAdapter.Other       
 #endif
 {
+    using System.Linq;
+    using System.Reflection;
     using LogMessage = Action<string, Exception, object>;
     public partial class LogAdapter
     {
@@ -39,6 +41,18 @@ namespace LogAdapter.Other
                     delegatesDest[nDelegate] = Delegate.CreateDelegate(type,
                         delegates[nDelegate].Target, delegates[nDelegate].Method);
                 return Delegate.Combine(delegatesDest);
+            }
+
+            public static bool SameApi(MethodInfo source, MethodInfo target)
+            {
+                Func<ParameterInfo, Tuple<string, Type>> map = 
+                    p => Tuple.Create(p.Name, p.ParameterType);
+                var sourceParams = source.GetParameters().Select(map).ToList();
+                var targetParams = target.GetParameters().Select(map).ToList();
+                if (sourceParams.Count != targetParams.Count)
+                    return false;
+                return !sourceParams.Zip(targetParams,Tuple.Create)
+                            .Any(t=>!t.Item1.Equals(t.Item2));
             }
         }
 
@@ -81,9 +95,10 @@ namespace LogAdapter.Other
             Logger log = Log;
             return DelegateUtility.Cast<T>(log);
         }
-        public bool IsValid<T>() 
+        public bool IsValid<T>()
         {
-            return false;
+            Logger log = Log;
+            return DelegateUtility.SameApi(typeof(T).GetMethod("Invoke"), log.Method);
         }
 
         public void Log(Exception expn = null,
