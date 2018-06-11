@@ -1,4 +1,6 @@
 language: csharp
+mono: latest
+dotnet : 2.1.300
 
 sudo: false 
 before_install:
