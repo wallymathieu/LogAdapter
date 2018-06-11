@@ -3,11 +3,21 @@ source https://api.nuget.org/v3/index.json
 source https://www.nuget.org/api/v2
 framework >= net45
 
-nuget NUnit 2.6.4
 nuget NUnit.Runners 2.6.4
-nuget NLog
-nuget Logary
-nuget Logary.CSharp
-nuget log4net
-nuget FAKE
-nuget FSharp.Core ~> 4 redirects: force
+nuget FAKE 5
+
+group netcorebuild
+    storage: none
+    source https://api.nuget.org/v3/index.json
+    nuget Fake.Core.Target
+    nuget Fake.Core.ReleaseNotes
+    nuget Fake.DotNet.AssemblyInfoFile
+    nuget Fake.DotNet.Cli
+    nuget Fake.DotNet.Testing.NUnit
+    nuget Fake.DotNet.NuGet
+    nuget Fake.DotNet.MsBuild
+    nuget Fake.Tools.Git 
+group Test
+    source https://api.nuget.org/v3/index.json
+
+    nuget Nunit.ConsoleRunner

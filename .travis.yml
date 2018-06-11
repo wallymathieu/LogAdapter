@@ -1,6 +1,7 @@
 language: csharp
 
 sudo: false 
-
-script: 
-  - bash ./build.sh test
+before_install:
+ - dotnet restore build.proj
+script:
+ - dotnet fake build

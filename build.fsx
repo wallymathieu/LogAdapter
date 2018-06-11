@@ -1,15 +1,18 @@
 // --------------------------------------------------------------------------------------
 // FAKE build script
 // --------------------------------------------------------------------------------------
+#r "paket: groupref netcorebuild //"
+open Fake.DotNet.NuGet
+#load ".fake/build.fsx/intellisense.fsx"
 
-#r @"packages/FAKE/tools/FakeLib.dll"
-open Fake
-open Fake.Git
-open Fake.AssemblyInfoFile
-open Fake.ReleaseNotesHelper
-open Fake.UserInputHelper
 open System
 open System.IO
+open Fake.Core
+open Fake.IO.Globbing.Operators
+open Fake.IO.FileSystemOperators
+open Fake.DotNet
+open Fake.IO
+open Fake.Tools
 
 // File system information 
 let solutionFile  = "./LogAdapter.sln"
@@ -33,49 +36,54 @@ let (|Fsproj|Csproj|Vbproj|) (projFileName:string) =
 // --------------------------------------------------------------------------------------
 // Clean build results
 
-Target "clean" (fun _ ->
-    CleanDirs ["bin"; "temp";] 
-    !! solutionFile
-    |> MSBuildReleaseExt "" [("Platform", "Any CPU")] "Clean"
+Target.create "clean" (fun _ ->
+    Shell.cleanDirs ["bin"; "temp";] 
+    solutionFile
+    |> MSBuild.build (fun opts ->
+        { opts with
+            RestorePackagesFlag = true
+            Targets = ["Clean"]
+            Verbosity = Some MSBuildVerbosity.Minimal
+            Properties =
+              [ "Platform", "Any CPU"
+                "Verbosity", "Minimal"
+                "Configuration", "Release"
+              ]
+        })
     |> ignore
 )
 
-Target "build" (fun _ ->
-    !! solutionFile
-    |> MSBuildReleaseExt "" [("Platform", "Any CPU")] "Rebuild"
+Target.create "build" (fun _ ->
+    solutionFile
+    |> MSBuild.build (fun opts ->
+        { opts with
+            RestorePackagesFlag = true
+            Targets = ["Rebuild"]
+            Verbosity = Some MSBuildVerbosity.Minimal
+            Properties =
+              [ "Platform", "Any CPU"
+                "Verbosity", "Minimal"
+                "Configuration", "Release"
+              ]
+        })
     |> ignore
 )
 
-Target "test_only" (fun _ ->
-    !! testAssemblies
-    |> NUnit (fun p ->
-        { p with
-            DisableShadowCopy = true
-            TimeOut = TimeSpan.FromMinutes 20.
-            OutputFile = "TestResults.xml" })
+open Microsoft.FSharp.Core
+
+Target.create "test_only" (fun _ ->
+    DotNet.test id "./Tests/Tests.csproj"
 )
 
+Target.create "test" Target.DoNothing
 
-
-Target "pack" (fun _ ->
-    Paket.Pack(fun p -> 
-        { p with
-            OutputPath = "bin"})
-)
-
-Target "push" (fun _ ->
-    Paket.Push(fun p -> 
-        { p with
-            WorkingDir = "bin" })
-)
-
-
-Target "test" (fun _ -> ())
 // --------------------------------------------------------------------------------------
 // Run all targets by default. Invoke 'build <Target>' to override
 
-Target "all" DoNothing
-  
+Target.create "all" Target.DoNothing
+
+open Fake.Core.TargetOperators
+
 "clean"
   ==> "build"
   ==> "test"
@@ -85,4 +93,4 @@ Target "all" DoNothing
  ==> "test"
 
 
-RunTargetOrDefault "test"
+Target.runOrDefault "test"

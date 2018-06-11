@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
 # if CORE
 namespace LogAdapter
 #elif NLOG
