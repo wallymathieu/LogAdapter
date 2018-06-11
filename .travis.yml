@@ -4,4 +4,4 @@ sudo: false
 before_install:
  - dotnet restore build.proj
 script:
- - dotnet fake build
+ - dotnet fake build target Test
