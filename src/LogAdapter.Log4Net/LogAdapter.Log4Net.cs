@@ -2,28 +2,47 @@
 using log4net;
 using log4net.Core;
 using log4net.Repository;
+
 namespace LogAdapter.Log4Net
 {
-    public partial class LogAdapter
+    public class LogAdapter
     {
+        private ILoggerRepository _logger;
+        private readonly string _loggerName;
+
         public LogAdapter(string loggerName) : this(LogManager.GetRepository(loggerName), loggerName)
         {
         }
-        public LogAdapter(ILoggerRepository logger, string loggerName) : this(
-                info: (msg, exn, obj) => logger.Log(ToLogEvent(Level.Info, loggerName, msg, obj, exn, logger)),
-                debug: (msg, exn, obj) => logger.Log(ToLogEvent(Level.Debug, loggerName, msg, obj, exn, logger)),
-                warn: (msg, exn, obj) => logger.Log(ToLogEvent(Level.Warn, loggerName, msg, obj, exn, logger)),
-                error: (msg, exn, obj) => logger.Log(ToLogEvent(Level.Error, loggerName, msg, obj, exn, logger)),
-            fatal: (msg, exn, obj) => logger.Log(ToLogEvent(Level.Fatal, loggerName, msg, obj, exn, logger)))
+
+        public LogAdapter(ILoggerRepository logger, string loggerName)
         {
+            this._logger = logger;
+            _loggerName = loggerName;
         }
-        private static LoggingEvent ToLogEvent(Level level, string loggerName,string msg, object fields, Exception exn,ILoggerRepository logger)
+
+        public void Log(int level, string message, Exception exception, object fields) =>
+            _logger.Log(ToLogEvent(ToLevel(level), _loggerName, message, fields, exception, _logger));
+
+        private static Level ToLevel(int level)
+        {
+            switch ((LogAdapterLevel) level)
+            {
+                case LogAdapterLevel.Debug: return Level.Debug;
+                case LogAdapterLevel.Info: return Level.Info;
+                case LogAdapterLevel.Warn: return Level.Warn;
+                case LogAdapterLevel.Error: return Level.Error;
+                case LogAdapterLevel.Fatal: return Level.Fatal;
+                default:return Level.Fatal;
+            }
+        }
+
+        private static LoggingEvent ToLogEvent(Level level, string loggerName, string msg, object fields, Exception exn,
+            ILoggerRepository logger)
         {
             var l = new LoggingEvent(typeof(LogAdapter), logger, loggerName, level, msg, exn);
             // should destruct fields into properties here:
             l.Properties["fields"] = fields;
             return l;
         }
-
     }
 }

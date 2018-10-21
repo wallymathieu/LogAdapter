@@ -16,8 +16,8 @@ namespace Tests
         [Fact]
         public void Test() 
         {
-            var log = new LogAdapter.NLog.LogAdapter();
-            var c = new MyClass(log.CastMethodTo<MyClass.Logger>());
+            var log = new LogAdapter.NLog.LogAdapter("Log", "Log");
+            var c = new MyClass(log.Log);
         }
    }
 }

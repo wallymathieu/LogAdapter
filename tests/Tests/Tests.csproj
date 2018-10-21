@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\src\LogAdapter.Log4Net\LogAdapter.Log4Net.csproj" />
     <ProjectReference Include="..\..\src\LogAdapter.Logary\LogAdapter.Logary.csproj" />
     <ProjectReference Include="..\..\src\LogAdapter.NLog\LogAdapter.NLog.csproj" />
+    <ProjectReference Include="..\..\src\LogAdapter\LogAdapter.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

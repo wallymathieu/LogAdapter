@@ -3,15 +3,9 @@ using LogAdapter;
 
 namespace Tests
 {
+    using Logger = Action<int, string, Exception, object>;
     public class MyClass
     {
-        public delegate void Logger(Exception expn = null,
-                            object fields = null,
-                            string fatal = null,
-                            string error = null,
-                            string warn = null,
-                            string debug = null,
-                            string info = null);
         private readonly Logger _logger;
         public MyClass(Logger logger)
         {
@@ -25,14 +19,14 @@ namespace Tests
         public SomeValue Get(int id) 
         {
             // do stuff
-            _logger(error: "fail");
+            _logger.Debug("fail");
             try
             {
 
             }
             catch (Exception ex)
             {
-                _logger(ex, error: "fail");
+                _logger.Error("fail", ex);
             }
             return new SomeValue();
         }

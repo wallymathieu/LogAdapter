@@ -13,7 +13,7 @@ namespace Tests
         public void Test()
         {
             var log = GetAdapter();
-            var c = new MyClass(log.CastMethodTo<MyClass.Logger>());
+            var c = new MyClass(log.Log);
         }
     }
 }
