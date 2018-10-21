@@ -40,7 +40,7 @@ Target.create "clean" (fun _ ->
 )
 
 
-Target.create "Restore" (fun _ ->
+Target.create "restore" (fun _ ->
     solutionFile
     |> DotNet.restore id
 )
@@ -88,6 +88,7 @@ Target.create "test" ignore
 Target.create "all" ignore
   
 "clean"
+  ==> "restore"
   ==> "build"
   ==> "test"
   ==> "all"
