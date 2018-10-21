@@ -1,12 +1,10 @@
-﻿using System;
-using Logary;
+﻿using Logary;
 using Logary.Configuration;
 using Logary.Targets;
-using NUnit.Framework;
+using Xunit;
 using Console = System.Console;
 namespace Tests
 {
-    [TestFixture]
     public class LogaryAdapterTests
     {
         readonly Logger _logger;
@@ -25,7 +23,7 @@ namespace Tests
         {
             return new LogAdapter.Logary.LogAdapter(_logger);
         }
-        [Test]
+        [Fact]
         public void Test()
         {
             var log = GetAdapter();

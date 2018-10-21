@@ -1,10 +1,9 @@
 ﻿using System;
 using NLog;
-using NUnit.Framework;
+using Xunit;
 
 namespace Tests
 {
-    [TestFixture]
     public class NLogAdapterTests
     {
         LogEventInfo ToLogEvent(LogLevel info, Exception exn, string msg, object fields)
@@ -14,7 +13,7 @@ namespace Tests
             l.Properties["fields"] = fields;
             return l;
         }
-        [Test]
+        [Fact]
         public void Test() 
         {
             var log = new LogAdapter.NLog.LogAdapter();

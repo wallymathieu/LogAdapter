@@ -1,8 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Tests
 {
-    [TestFixture]
     public class Log4NetAdapterTests
     {
         public LogAdapter.Log4Net.LogAdapter GetAdapter()
@@ -10,7 +9,7 @@ namespace Tests
             return new LogAdapter.Log4Net.LogAdapter("test");
         }
 
-        [Test]
+        [Fact]
         public void Test()
         {
             var log = GetAdapter();

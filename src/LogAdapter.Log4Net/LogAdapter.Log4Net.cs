@@ -6,7 +6,7 @@ namespace LogAdapter.Log4Net
 {
     public partial class LogAdapter
     {
-        public LogAdapter(string loggerName) : this(LogManager.GetRepository(), loggerName)
+        public LogAdapter(string loggerName) : this(LogManager.GetRepository(loggerName), loggerName)
         {
         }
         public LogAdapter(ILoggerRepository logger, string loggerName) : this(

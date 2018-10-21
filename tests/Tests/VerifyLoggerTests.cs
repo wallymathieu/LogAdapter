@@ -1,9 +1,8 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace Tests
 {
-    [TestFixture]
     public class VerifyLoggerTests
     {
         LogAdapter.NLog.LogAdapter log;
@@ -32,12 +31,12 @@ namespace Tests
                            string info = null);
         }
 
-        [Test]
+        [Fact]
         public void It_should_recognize_valid_logger() 
         {
             Assert.True( log.IsValid<MyClass.Logger>());
         }
-        [Test]
+        [Fact]
         public void It_should_recognize_invalid_logger()
         {
             Assert.False(log.IsValid<ClassWithDifferentOrderOfParams.Logger>());
