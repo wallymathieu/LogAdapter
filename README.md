@@ -1,10 +1,5 @@
 # LogAdapter [![Build Status](https://travis-ci.org/wallymathieu/LogAdapter.svg?branch=master)](https://travis-ci.org/wallymathieu/LogAdapter) [![Build status](https://ci.appveyor.com/api/projects/status/o6k8vkok337gt4by/branch/master?svg=true)](https://ci.appveyor.com/project/wallymathieu/logadapter/branch/master)
 
-- LogAdapter [![NuGet](http://img.shields.io/nuget/v/LogAdapter.svg)](https://www.nuget.org/packages/LogAdapter/) 
-- LogAdapter.NLog [![NuGet](http://img.shields.io/nuget/v/LogAdapter.NLog.svg)](https://www.nuget.org/packages/LogAdapter.NLog/)
-- LogAdapter.Log4Net [![NuGet](http://img.shields.io/nuget/v/LogAdapter.Log4Net.svg)](https://www.nuget.org/packages/LogAdapter.Log4Net/)
-- LogAdapter.Logary [![NuGet](http://img.shields.io/nuget/v/LogAdapter.Logary.svg)](https://www.nuget.org/packages/LogAdapter.Logary/)
-
 Adapter for library logging (for current and future logging frameworks). LogAdapter is not a logging framework. It is intended to be used instead of a logger in order to let the consumer of a library choose how to log things.
 
 ## Note

@@ -10,6 +10,7 @@ module Logger=
     type LogMessage = int * string * exn * obj
     type Logger = LogMessage -> unit
     
+ 
     let log (logger:Logger) s values = logger (int Level.Debug, s, null, values)
     let logf (logger:Logger) formatString values= Printf.kprintf (log logger) formatString values
     
