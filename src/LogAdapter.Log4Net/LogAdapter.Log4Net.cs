@@ -10,7 +10,7 @@ namespace LogAdapter.Log4Net
         private ILoggerRepository _logger;
         private readonly string _loggerName;
 
-        public LogAdapter(string loggerName) : this(LogManager.GetRepository(loggerName), loggerName)
+        public LogAdapter(string loggerName) : this(LogManager.CreateRepository("LogAdapter"), loggerName)
         {
         }
 

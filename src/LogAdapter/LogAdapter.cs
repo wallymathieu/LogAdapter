@@ -22,7 +22,6 @@ namespace LogAdapter.Other
     }
     public static class LoggerExtensions
     {
-      
         public static void Error(this Logger logger,string message, Exception exception=null, object fields=null) => 
             logger((int)LogAdapterLevel.Error, message, exception, fields);
         public static void Debug(this Logger logger,string message, Exception exception=null, object fields=null) => 

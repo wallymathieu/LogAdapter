@@ -14,6 +14,7 @@ namespace Tests
         {
             var log = GetAdapter();
             var c = new MyClass(log.Log);
+            c.Get(1);
         }
     }
 }

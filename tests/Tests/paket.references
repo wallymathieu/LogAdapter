@@ -1,1 +1,6 @@
 FSharp.Core
+
+Logary
+Logary.CSharp
+NLog
+log4net
