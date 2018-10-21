@@ -8,6 +8,14 @@ namespace LogAdapter.Logary
     public class LogAdapter
     {
         private Logger _logger;
+        private enum LogAdapterLevel
+        {
+            Debug = 0,
+            Info = 1,
+            Warn =2,
+            Error =3,
+            Fatal=4
+        }
 
         public LogAdapter(LogManager logManager, string name) : this(logManager.GetLogger(name))
         {

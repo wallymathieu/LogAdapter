@@ -12,26 +12,23 @@ namespace LogAdapter.Other
 #endif
 {
     using Logger = Action<int, string, Exception, object>;
-    public enum LogAdapterLevel
-    {
-        Debug = 0,
-        Info = 1,
-        Warn =2,
-        Error =3,
-        Fatal=4
-    }
     public static class LoggerExtensions
     {
-        public static void Error(this Logger logger,string message, Exception exception=null, object fields=null) => 
-            logger((int)LogAdapterLevel.Error, message, exception, fields);
-        public static void Debug(this Logger logger,string message, Exception exception=null, object fields=null) => 
-            logger((int)LogAdapterLevel.Debug, message, exception, fields);
-        public static void Info(this Logger logger,Exception exception, string message, object fields=null) => 
-            logger((int)LogAdapterLevel.Info, message, exception, fields);
-        public static void Warn(this Logger logger,Exception exception, string message, object fields=null) => 
-            logger((int)LogAdapterLevel.Warn, message, exception, fields);
-        public static void Fatal(this Logger logger,Exception exception, string message, object fields=null) => 
-            logger((int)LogAdapterLevel.Fatal, message, exception, fields);        
+        private const int DebugLevel = 0;
+        private const int InfoLevel = 1;
+        private const int WarnLevel = 2;
+        private const int ErrorLevel = 3;
+        private const int FatalLevel = 4;
+        public static void Error(this Logger logger,string message, Exception exception=null, object fields=null) =>
+            logger(ErrorLevel, message, exception, fields);
+        public static void Debug(this Logger logger,string message, Exception exception=null, object fields=null) =>
+            logger(DebugLevel, message, exception, fields);
+        public static void Info(this Logger logger,Exception exception, string message, object fields=null) =>
+            logger(InfoLevel, message, exception, fields);
+        public static void Warn(this Logger logger,Exception exception, string message, object fields=null) =>
+            logger(WarnLevel, message, exception, fields);
+        public static void Fatal(this Logger logger,Exception exception, string message, object fields=null) =>
+            logger(FatalLevel, message, exception, fields);
     }
 
   

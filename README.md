@@ -15,18 +15,30 @@ This is not a library.
 
 Avoid taking on a dependency on a logging library for a library. The intent is that in your application code you can take a dependency on a specific version of a logging framework, and create a LogAdapter implementation for that specific version. A library should not determine what kind of logging you choose for your application.
 
-## Installation
+## Installation C#
 
 Copy the following code to your library:
 
 ```
-public delegate void Logger(Exception expn = null,
-                                object fields = null,
-                                string fatal = null,
-                                string error = null,
-                                string warn = null,
-                                string debug = null,
-                                string info = null);
+using Logger = Action<int, string, Exception, object>;
+public static class LoggerExtensions
+{
+    private const int DebugLevel = 0;
+    private const int InfoLevel = 1;
+    private const int WarnLevel = 2;
+    private const int ErrorLevel = 3;
+    private const int FatalLevel = 4;
+    public static void Error(this Logger logger,string message, Exception exception=null, object fields=null) =>
+        logger(ErrorLevel, message, exception, fields);
+    public static void Debug(this Logger logger,string message, Exception exception=null, object fields=null) =>
+        logger(DebugLevel, message, exception, fields);
+    public static void Info(this Logger logger,Exception exception, string message, object fields=null) =>
+        logger(InfoLevel, message, exception, fields);
+    public static void Warn(this Logger logger,Exception exception, string message, object fields=null) =>
+        logger(WarnLevel, message, exception, fields);
+    public static void Fatal(this Logger logger,Exception exception, string message, object fields=null) =>
+        logger(FatalLevel, message, exception, fields);
+}
 ```
 
 Then when consuming the library create your adapter for this method.
@@ -34,28 +46,30 @@ Then when consuming the library create your adapter for this method.
 ## Usage
 
 ```
-    public class MyClass
-    {
-        private readonly Logger _logger;
-        public MyClass(Logger logger)
-        {
-            _logger = logger;
-        }
+using Logger = Action<int, string, Exception, object>;
 
-        public SomeValue Get(int id) 
+public class MyClass
+{
+    private readonly Logger _logger;
+    public MyClass(Logger logger)
+    {
+        _logger = logger;
+    }
+
+    public SomeValue Get(int id) 
+    {
+        try
         {
-            try
-            {
-                // do stuff ...
-                return new SomeValue{ SomeThing=something };
-            }
-            catch (Exception ex)
-            {
-                _logger(ex, error: "fail");
-                return SomeValue.Failure();
-            }
+            // do stuff ...
+            return new SomeValue{ SomeThing=something };
+        }
+        catch (Exception ex)
+        {
+            _logger.Error("fail", ex);
+            return SomeValue.Failure();
         }
     }
+}
 ```
 
 ## Alternatives
@@ -70,7 +84,5 @@ This has some pros and cons. If you use this non-library (we assume that you don
 
 ## Why shouldn't you use this approach?
 
-The type signature provided is more c# or vb specific. Since the introduction of [Microsoft.Extensions.Logging](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging?view=aspnetcore-2.0) and [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection?view=aspnetcore-2.0), many c# or vb libraries have gotten a common story for how to be consumed.
-
-In f# you have [less need](http://blog.ploeh.dk/2017/02/02/dependency-rejection/) to use an object oriented dependency injection.
+In f# you might have [less need](http://blog.ploeh.dk/2017/02/02/dependency-rejection/) to use an object oriented dependency injection.
 

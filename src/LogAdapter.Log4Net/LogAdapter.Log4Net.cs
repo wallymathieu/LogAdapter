@@ -7,6 +7,15 @@ namespace LogAdapter.Log4Net
 {
     public class LogAdapter
     {
+        private enum LogAdapterLevel
+        {
+            Debug = 0,
+            Info = 1,
+            Warn =2,
+            Error =3,
+            Fatal=4
+        }
+
         private ILoggerRepository _logger;
         private readonly string _loggerName;
 
