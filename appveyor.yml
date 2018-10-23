@@ -1,2 +1,8 @@
 build_script:
-  - build.cmd build
+  - build.cmd test
+test: off
+build: off
+
+branches:
+  only:
+    - master

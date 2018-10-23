@@ -2,81 +2,93 @@
 // FAKE build script
 // --------------------------------------------------------------------------------------
 
-#r @"packages/FAKE/tools/FakeLib.dll"
-open Fake
-open Fake.Git
-open Fake.AssemblyInfoFile
-open Fake.ReleaseNotesHelper
-open Fake.UserInputHelper
-open System
+#r "paket: groupref FakeBuild //"
+
+#load "./.fake/build.fsx/intellisense.fsx"
+
 open System.IO
+open Fake.Core
+open Fake.Core.TargetOperators
+open Fake.DotNet
+open Fake.IO
+open Fake.IO.FileSystemOperators
+open Fake.IO.Globbing.Operators
+open Fake.DotNet.Testing
+open Fake.Tools
+open Fake.Api
+open Fake.DotNet
 
 // File system information 
 let solutionFile  = "./LogAdapter.sln"
 
-// Pattern specifying assemblies to be tested using NUnit
-let testAssemblies = "**/bin/*/Tests.dll"
+// Default target configuration
+let configuration = "Release"
+
+let testProjects = ["./tests/Tests"] 
+
 
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps
 // --------------------------------------------------------------------------------------
 
-// Helper active pattern for project types
-let (|Fsproj|Csproj|Vbproj|) (projFileName:string) = 
-    match projFileName with
-    | f when f.EndsWith("fsproj") -> Fsproj
-    | f when f.EndsWith("csproj") -> Csproj
-    | f when f.EndsWith("vbproj") -> Vbproj
-    | _                           -> failwith (sprintf "Project file %s not supported. Unknown project type." projFileName)
-
 
 // --------------------------------------------------------------------------------------
 // Clean build results
 
-Target "clean" (fun _ ->
-    CleanDirs ["bin"; "temp";] 
-    !! solutionFile
-    |> MSBuildReleaseExt "" [("Platform", "Any CPU")] "Clean"
-    |> ignore
-)
-
-Target "build" (fun _ ->
-    !! solutionFile
-    |> MSBuildReleaseExt "" [("Platform", "Any CPU")] "Rebuild"
-    |> ignore
-)
-
-Target "test_only" (fun _ ->
-    !! testAssemblies
-    |> NUnit (fun p ->
-        { p with
-            DisableShadowCopy = true
-            TimeOut = TimeSpan.FromMinutes 20.
-            OutputFile = "TestResults.xml" })
+Target.create "clean" (fun _ ->
+    Shell.cleanDirs ["bin"; "temp"]
 )
 
 
+Target.create "restore" (fun _ ->
+    solutionFile
+    |> DotNet.restore id
+)
 
-Target "pack" (fun _ ->
-    Paket.Pack(fun p -> 
+Target.create "Build" (fun _ ->
+    let buildMode = Environment.environVarOrDefault "buildMode" configuration
+    let setParams (defaults:MSBuildParams) =
+        { defaults with
+            Verbosity = Some(Quiet)
+            Targets = ["Build"]
+            Properties =
+                [
+                    "Optimize", "True"
+                    "DebugSymbols", "True"
+                    "Configuration", buildMode
+                ]
+         }
+    MSBuild.build setParams solutionFile
+)
+
+Target.create "test_only" (fun _ ->
+    testProjects
+    |> Seq.iter (fun proj -> DotNet.test (fun p ->
+        { p with ResultsDirectory = Some __SOURCE_DIRECTORY__ }) proj)
+)
+
+
+Target.create "pack" (fun _ ->
+    Paket.pack(fun p -> 
         { p with
             OutputPath = "bin"})
 )
 
-Target "push" (fun _ ->
-    Paket.Push(fun p -> 
+Target.create "push" (fun _ ->
+    Paket.push(fun p -> 
         { p with
             WorkingDir = "bin" })
 )
 
 
-Target "test" (fun _ -> ())
+Target.create "test" ignore
 // --------------------------------------------------------------------------------------
 // Run all targets by default. Invoke 'build <Target>' to override
 
-Target "all" DoNothing
+Target.create "all" ignore
   
 "clean"
+  ==> "restore"
   ==> "build"
   ==> "test"
   ==> "all"
@@ -84,5 +96,4 @@ Target "all" DoNothing
 "test_only"
  ==> "test"
 
-
-RunTargetOrDefault "test"
+Target.runOrDefault "test"

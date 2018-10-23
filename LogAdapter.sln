@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -7,15 +7,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{4BE81F
 		paket.dependencies = paket.dependencies
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter", "LogAdapter\LogAdapter.csproj", "{23D5264E-1357-4F15-8A2B-B0119F6DB74F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter", "src\LogAdapter\LogAdapter.csproj", "{23D5264E-1357-4F15-8A2B-B0119F6DB74F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7BDD67F1-6857-435B-9923-0DDD053DC32D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\Tests\Tests.csproj", "{7BDD67F1-6857-435B-9923-0DDD053DC32D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter.NLog", "LogAdapter.NLog\LogAdapter.NLog.csproj", "{CCA47096-0FB8-4AEF-967F-0D2A641795C6}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LogAdapter.FSharp", "src\LogAdapter.FSharp\LogAdapter.FSharp.fsproj", "{562EDAC5-4558-4555-BDC3-BF8412CA06C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter.Logary", "LogAdapter.Logary\LogAdapter.Logary.csproj", "{719F4F91-386C-44A9-8E71-CEB2D99DB606}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5FD36692-8E43-4F7F-BE0E-08C7075ABAAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAdapter.Log4Net", "LogAdapter.Log4Net\LogAdapter.Log4Net.csproj", "{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{073D00D3-B063-419A-BDE3-D1F67490C3B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8ABC5B30-DC32-408A-842A-14B4EB4B271C}"
+	ProjectSection(SolutionItems) = preProject
+		build.fsx = build.fsx
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeClassLibrary", "tests\SomeClassLibrary\SomeClassLibrary.csproj", "{E99F1A6D-60F3-4F48-9A96-9F1F6118DEE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,20 +39,22 @@ Global
 		{7BDD67F1-6857-435B-9923-0DDD053DC32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BDD67F1-6857-435B-9923-0DDD053DC32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BDD67F1-6857-435B-9923-0DDD053DC32D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCA47096-0FB8-4AEF-967F-0D2A641795C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{719F4F91-386C-44A9-8E71-CEB2D99DB606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{719F4F91-386C-44A9-8E71-CEB2D99DB606}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{719F4F91-386C-44A9-8E71-CEB2D99DB606}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{719F4F91-386C-44A9-8E71-CEB2D99DB606}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5E7BDC8-2C64-404B-B0AD-19A812BC14FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562EDAC5-4558-4555-BDC3-BF8412CA06C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562EDAC5-4558-4555-BDC3-BF8412CA06C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562EDAC5-4558-4555-BDC3-BF8412CA06C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562EDAC5-4558-4555-BDC3-BF8412CA06C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E99F1A6D-60F3-4F48-9A96-9F1F6118DEE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E99F1A6D-60F3-4F48-9A96-9F1F6118DEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E99F1A6D-60F3-4F48-9A96-9F1F6118DEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E99F1A6D-60F3-4F48-9A96-9F1F6118DEE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{23D5264E-1357-4F15-8A2B-B0119F6DB74F} = {5FD36692-8E43-4F7F-BE0E-08C7075ABAAA}
+		{562EDAC5-4558-4555-BDC3-BF8412CA06C9} = {5FD36692-8E43-4F7F-BE0E-08C7075ABAAA}
+		{7BDD67F1-6857-435B-9923-0DDD053DC32D} = {073D00D3-B063-419A-BDE3-D1F67490C3B3}
+		{E99F1A6D-60F3-4F48-9A96-9F1F6118DEE0} = {073D00D3-B063-419A-BDE3-D1F67490C3B3}
 	EndGlobalSection
 EndGlobal
