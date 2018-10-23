@@ -14,45 +14,32 @@ Avoid taking on a dependency on a logging library for a library. The intent is t
 
 Copy the following code to your library:
 
-```
-using Logger = Action<int, string, Exception, object>;
-public static class LoggerExtensions
-{
-    private const int DebugLevel = 0;
-    private const int InfoLevel = 1;
-    private const int WarnLevel = 2;
-    private const int ErrorLevel = 3;
-    private const int FatalLevel = 4;
-    public static void Error(this Logger logger,string message, Exception exception=null, object fields=null) =>
-        logger(ErrorLevel, message, exception, fields);
-    public static void Debug(this Logger logger,string message, Exception exception=null, object fields=null) =>
-        logger(DebugLevel, message, exception, fields);
-    public static void Info(this Logger logger,Exception exception, string message, object fields=null) =>
-        logger(InfoLevel, message, exception, fields);
-    public static void Warn(this Logger logger,Exception exception, string message, object fields=null) =>
-        logger(WarnLevel, message, exception, fields);
-    public static void Fatal(this Logger logger,Exception exception, string message, object fields=null) =>
-        logger(FatalLevel, message, exception, fields);
-}
+```c#
+    using LogError = Action<string, Exception>;
+    using LogDebug = Action<string>;
 ```
 
 Then when consuming the library create your adapter for this method.
 
 ## Usage
 
-```
-using Logger = Action<int, string, Exception, object>;
+```c#
+using LogError = Action<string, Exception>;
+using LogDebug = Action<string>;
 
 public class MyClass
 {
-    private readonly Logger _logger;
-    public MyClass(Logger logger)
+    private readonly LogError _logError;
+    private readonly LogDebug _logDebug;
+    public MyClass(LogError logError, LogDebug logDebug)
     {
-        _logger = logger;
+        _logError = logError;
+        _logDebug = logDebug;
     }
 
     public SomeValue Get(int id) 
     {
+        _logDebug("get");
         try
         {
             // do stuff ...
@@ -60,7 +47,7 @@ public class MyClass
         }
         catch (Exception ex)
         {
-            _logger.Error("fail", ex);
+            _logError("fail", ex);
             return SomeValue.Failure();
         }
     }
