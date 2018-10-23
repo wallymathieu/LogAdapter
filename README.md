@@ -75,9 +75,8 @@ LogAdapter is intended to be a minimal logging abstraction. I.e. the goal is not
  - [Microsoft.Extensions.Logging](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging?view=aspnetcore-2.0) 
  - [LibLog](https://github.com/damianh/LibLog) 
 
-This has some pros and cons. If you use this non-library (we assume that you don't use any of the nuget packages provided), then it's easier to plug in any logging abstraction. The downside is that you don't get more than minimal features in your logging. If you look at the type signature used by LogAdapter, it assumes that you use c#. Logary Facade provides and LibLog provides more complete abstractions at the expense of making it more difficult to plug in random logging framework (Logary assumes that you want to use Logary as an adapter). Microsoft.Extensions.Logging ties your code to specific logging abstractions and requires you to keep up to date with the major versions of that library.
+This has some pros and cons. If you use this non-library (we assume that you don't use any of the nuget packages provided), then it's easier to plug in any logging abstraction. The downside is that you don't get more than minimal features in your logging. If you look at the type signature used by LogAdapter, it assumes that you use c#. Logary Facade provides and LibLog provides more complete abstractions at the expense of making it more difficult to plug in random logging framework. Microsoft.Extensions.Logging ties your code to specific logging abstractions and requires you to keep up to date with the major versions of that library.
 
 ## Why shouldn't you use this approach?
 
 In f# you might have [less need](http://blog.ploeh.dk/2017/02/02/dependency-rejection/) to use an object oriented dependency injection.
-
