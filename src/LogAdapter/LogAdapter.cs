@@ -11,49 +11,12 @@ namespace LogAdapter.Log4Net
 namespace LogAdapter.Other       
 #endif
 {
-    using Logger = Action<int, string, Exception, object>;
-    public static class LoggerExtensions
-    {
-        private const int DebugLevel = 0;
-        private const int InfoLevel = 1;
-        private const int WarnLevel = 2;
-        private const int ErrorLevel = 3;
-        private const int FatalLevel = 4;
-        public static void Error(this Logger logger,string message, Exception exception=null, object fields=null) =>
-            logger(ErrorLevel, message, exception, fields);
-        public static void Debug(this Logger logger,string message, Exception exception=null, object fields=null) =>
-            logger(DebugLevel, message, exception, fields);
-        public static void Info(this Logger logger,Exception exception, string message, object fields=null) =>
-            logger(InfoLevel, message, exception, fields);
-        public static void Warn(this Logger logger,Exception exception, string message, object fields=null) =>
-            logger(WarnLevel, message, exception, fields);
-        public static void Fatal(this Logger logger,Exception exception, string message, object fields=null) =>
-            logger(FatalLevel, message, exception, fields);
-    }
-
-  
-    /* Depends to much on c# specifics :
-     
-    public delegate void LoggerDelegate(Exception exception = null,
-        object fields = null,
-        string fatal = null,
-        string error = null,
-        string warn = null,
-        string debug = null,
-        string info = null);
-    
-    public static class LoggerDelegateExtensions
-    {
-        public static void Error(this LoggerDelegate logger,string message, Exception exception=null, object fields=null) => 
-            logger(error: message, exception: exception, fields: fields);
-        public static void Debug(this LoggerDelegate logger,string message, Exception exception=null, object fields=null) => 
-            logger(debug: message, exception: exception, fields: fields);
-        public static void Info(this LoggerDelegate logger,Exception exception, string message, object fields=null) => 
-            logger(info: message, exception: exception, fields: fields);
-        public static void Warn(this LoggerDelegate logger,Exception exception, string message, object fields=null) => 
-            logger(warn: message, exception: exception, fields: fields);
-        public static void Fatal(this LoggerDelegate logger,Exception exception, string message, object fields=null) => 
-            logger(fatal: message, exception: exception, fields: fields);        
-    }
-    */
+    /***
+     * Minimal log abstraction :
+     */
+    using LogError = Action<string, Exception>;
+    using LogDebug = Action<string>;
+    /*
+     * The goal is to be able to 
+     */
 }

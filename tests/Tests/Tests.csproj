@@ -10,10 +10,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\LogAdapter.Log4Net\LogAdapter.Log4Net.csproj" />
-    <ProjectReference Include="..\..\src\LogAdapter.Logary\LogAdapter.Logary.csproj" />
-    <ProjectReference Include="..\..\src\LogAdapter.NLog\LogAdapter.NLog.csproj" />
-    <ProjectReference Include="..\..\src\LogAdapter\LogAdapter.csproj" />
+    <ProjectReference Include="..\SomeClassLibrary\SomeClassLibrary.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

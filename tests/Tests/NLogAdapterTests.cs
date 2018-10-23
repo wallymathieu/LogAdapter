@@ -1,23 +1,21 @@
 ﻿using System;
 using NLog;
+using SomeClassLibrary;
 using Xunit;
 
 namespace Tests
 {
     public class NLogAdapterTests
     {
-        LogEventInfo ToLogEvent(LogLevel info, Exception exn, string msg, object fields)
-        {
-            var l = new LogEventInfo(info, "lib", message: msg, exception: exn, formatProvider: null, parameters:new object[0]);
-            // should destruct fields into properties here:
-            l.Properties["fields"] = fields;
-            return l;
-        }
         [Fact]
         public void Test() 
         {
-            var log = new LogAdapter.NLog.LogAdapter("Log", "Log");
-            var c = new MyClass(log.Log);
+            var log = LogManager.GetLogger("test");
+            var c = new MyClass(
+                logDebug:msg=>log.Debug(msg),
+                logError:(msg,exn)=>log.Error(exn, msg)
+            );
+            c.Get(1);
         }
    }
 }

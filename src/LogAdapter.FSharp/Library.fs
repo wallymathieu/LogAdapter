@@ -1,18 +1,11 @@
 namespace LogAdapter.FSharp
 
 module Logger=
-    /// Log level
-    type Level=
-        |Debug = 0
-        |Info = 1
-        |Warn = 2
-        |Error = 3
-    type LogMessage = int * string * exn * obj
-    type Logger = LogMessage -> unit
-    
+    type LogDebug = string -> unit
+    type LogError = string * exn -> unit
  
-    let log (logger:Logger) s values = logger (int Level.Debug, s, null, values)
-    let logf (logger:Logger) formatString values= Printf.kprintf (log logger) formatString values
+    let log (logger:LogDebug) s values = logger s
+    let logf (logger:LogDebug) formatString values= Printf.kprintf (log logger) formatString values
     
-    let logError (logger:Logger) exn s values = logger (int Level.Error, s, exn, values)
-    let logErrorf (logger:Logger) exn formatString values= Printf.kprintf (log logger) exn formatString values
+    let logError (logger:LogError) s exn= logger (s, exn)
+    let logErrorf (logger:LogError) formatString exn= Printf.kprintf (logError logger) formatString exn

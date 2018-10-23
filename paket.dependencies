@@ -5,6 +5,7 @@ source https://www.nuget.org/api/v2
 nuget NLog
 nuget Logary
 nuget Logary.CSharp
+nuget NodaTime
 nuget log4net
 nuget FAKE
 nuget FSharp.Core ~> 4 redirects: force

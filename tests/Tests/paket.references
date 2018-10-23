@@ -2,5 +2,7 @@ FSharp.Core
 
 Logary
 Logary.CSharp
+NodaTime
+
 NLog
 log4net

@@ -1,6 +1,9 @@
 ﻿using Logary;
 using Logary.Configuration;
 using Logary.Targets;
+using Logary.CSharp;
+using NodaTime;
+using SomeClassLibrary;
 using Xunit;
 using Console = System.Console;
 namespace Tests
@@ -11,23 +14,24 @@ namespace Tests
 
         public LogaryAdapterTests()
         {
-            var logMan = LogaryFactory.New("lib", c => c.Target<TextWriter.Builder>("console1",
-                                                                             conf1 =>
-                                                                             conf1.Target.WriteTo(Console.Out, Console.Error)
-                                                                                      .MinLevel(LogLevel.Verbose))
-                                  );
+            var clock =  NodaTime.SystemClock.Instance;
+            var logMan = LogaryFactory.New("lib", 
+                c => 
+                    c.Target<TextWriter.Builder>("console1",
+                       conf1 => conf1.Target.WriteTo(Console.Out, Console.Error).MinLevel(LogLevel.Verbose)
+                    )
+            );
             _logger= logMan.Result.GetLogger("Library");
         }
 
-        public LogAdapter.Logary.LogAdapter GetAdapter() 
-        {
-            return new LogAdapter.Logary.LogAdapter(_logger);
-        }
-        [Fact(Skip = "Field not found: 'NodaTime.SystemClock.Instance'")]
+
+        [Fact(Skip = "For some reason the not null marked instance SystemClock.Instance is null ...")]
         public void Test()
         {
-            var log = GetAdapter();
-            var c = new MyClass(log.Log);
+            var c = new MyClass(
+                logDebug:msg=>_logger.LogEvent(LogLevel.Debug, msg),
+                logError:(msg,exn)=>_logger.LogEvent(LogLevel.Error, msg, exn:exn)
+                );
             c.Get(1);
         }
     }
