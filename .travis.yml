@@ -3,7 +3,6 @@ mono: 5.12.0
 
 dotnet: 2.1.401
 
-sudo: false 
 install:
 
   # workaround for missing .net 4.5 targing pack
